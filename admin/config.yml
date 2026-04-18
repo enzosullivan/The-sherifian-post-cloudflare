@@ -1,0 +1,47 @@
+backend:
+  name: github
+  repo: enzosullivan/The-sherifian-post-cloudflare # À modifier par votre repo
+  branch: main
+
+media_folder: "assets/images" # Où les images seront stockées
+public_folder: "/assets/images"
+
+collections:
+  - name: "articles"
+    label: "Dossiers de fond (Articles)"
+    folder: "content/articles"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Titre", name: "title", widget: "string" }
+      - { label: "Date de publication", name: "date", widget: "datetime" }
+      - { label: "Image de couverture", name: "image", widget: "image", required: false }
+      - { 
+          label: "Catégorie", 
+          name: "category", 
+          widget: "select", 
+          options: ["Global Reach", "The Shield", "Archives", "Cultural DNA"] 
+        }
+      - { label: "Description courte", name: "description", widget: "text" }
+      - { label: "Corps de l'article", name: "body", widget: "markdown" }
+
+  - name: "highlights"
+    label: "Highlights (Preuves du jour)"
+    folder: "content/highlights"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Titre", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Corps", name: "body", widget: "markdown" }
+
+  - name: "radar"
+    label: "Radar (Debunking)"
+    folder: "content/radar"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Sujet", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Analyse", name: "body", widget: "markdown" }
+      
