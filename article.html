@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Sherifian Post</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <nav><a href="index.html">← Accueil</a></nav>
+    <div id="content">Chargement de l'article...</div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const articleId = urlParams.get('id'); // Récupère "test-securite" dans l'URL
+
+        if (articleId) {
+            // URL vers ton fichier sur GitHub
+            const repo = "enzosullivan/The-sherifian-post-cloudflare";
+            const url = `https://raw.githubusercontent.com/${repo}/main/content/articles/${articleId}.md`;
+
+            fetch(url)
+                .then(res => {
+                    if(!res.ok) throw new Error("Article non trouvé");
+                    return res.text();
+                })
+                .then(md => {
+                    // On nettoie le "Frontmatter" (les infos entre ---) et on affiche le texte
+                    const cleanMd = md.replace(/^---[\s\S]+?---/, '');
+                    document.getElementById('content').innerHTML = marked.parse(cleanMd);
+                })
+                .catch(err => document.getElementById('content').innerHTML = err.message);
+        }
+    </script>
+</body>
+</html>
